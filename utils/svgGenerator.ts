@@ -1,4 +1,5 @@
 import { type RepoData } from '../services/github';
+import { getLanguageColor } from './languageColors';
 
 interface ThemeColors {
   bg: string;
@@ -101,7 +102,6 @@ export const generateRepoSVG = (repo: RepoData, options: SvgOptions): string => 
   const language = repo.language || '';
   const isPrivate = repo.private ? 'Private' : 'Public';
   
-
   const borderAttr = hide_border ? '' : `stroke="${colors.border}" stroke-width="1"`;
   
   const repoNameLength = (show_owner ? username.length + name.length + 1 : name.length) * 7.5;
@@ -159,7 +159,7 @@ export const generateRepoSVG = (repo: RepoData, options: SvgOptions): string => 
   if (language) {
     svg += `
         <g>
-          <circle class="lang-circle" cx="6" cy="0" fill="${language.toLowerCase() === 'typescript' ? '#3178c6' : '#3178c6'}" />
+          <circle class="lang-circle" cx="6" cy="0" fill="${getLanguageColor(language)}" />
           <text class="text" x="16" y="0" dominant-baseline="middle">${language}</text>
         </g>
     `;
